@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+/*<!--comentario-->*/
+*{
+	padding: 0px;
+	margin: 0px;
+}
+/************************************************************************/
+.formato-colum1{		/*categoria*/
+	/*padding-left: 15%;*/
+	color: #000;
+	/*border: 2px solid;*/
+}
+/**/
+.logo2{
+	padding-top: 20%;
+	padding-bottom: 8%;;
+	width: 100%;
+	font-family: 'Oswald', sans-serif;
+}
+.logo2 h3{
+	font-size: 45px;
+	line-height: 75px;
+	color: #000;
+	font-weight: 700;
+}
+span{
+	background: #000;
+	color: #fff;
+	border-radius: 5px;
+	padding-left: 5PX;
+	padding-right: 5PX;
+}
+.formato-categoria{
+	margin-left: 5%;
+	z-index:99; 
+	position: fixed;
+}
+.formato-colum1 h3{
+	margin-top: 10px;
+	color: #000;
+	font-family: 'Oswald', sans-serif;
+}
+.formato-colum1 a{
+	color: #000;
+	font-family: 'Oswald', sans-serif;
+}
+.formato-colum1 a:hover{
+	background: #7EBAE2;
+	color: #fff;
+}
+/***************************************************************/
+.formato-columnas{	/*articulos*/
+	padding-top: 8%;
+	font-family: 'Oswald', sans-serif;
+	text-align: right;
+	/*border: 2px solid;*/
+}
+.formato-columnas img{
+	width: 100%; 
+	height: auto; 
+	object-fit: cover;
+}
+.detalles{
+	margin-top: 10px;
+	text-align: center;
+}
+.detalles button{
+	font-size: 20px;
+}
+/******************************************************************/
+/*********responsive*******/
+@media	(max-width: 576px){
+	.formato-colum1{
+	margin-left: 0%;
+	}
+	.formato-categoria{
+	/*z-index:1; */
+	margin-left: 0%;
+	position: relative;
+	}
+	.formato-columnas h2 span{
+		margin-right: 15px;
+		font-size: 30px;
+	}
+	.logo2{
+		padding-top: 14%;
+		padding-bottom: 1%;;
+		width: 100%;
+		margin: 0px;
+		text-align: center;
+	}
+	.logo2 h3{
+	font-size: 35px;
+	line-height: 58px;
+	color: #000;
+	font-weight: 700;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+	}
+	p,span{
+		text-align: center;
+		font-size: 20px;
+		padding-top: 0px;
+		margin-top:0px;
+	}
+}
+@media (min-width:1024px){
+	.formato-columnas{	
+		padding-top: 15%;
+	}
+	.formato-categoria{
+	margin-left: 2%;
+	}
+}
+@media (min-width:1400px){
+	.formato-columnas{	
+		padding-top: 8%;
+	}
+}
