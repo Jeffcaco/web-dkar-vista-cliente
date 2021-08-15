@@ -8,7 +8,7 @@ try{
                 echo "NO TE PREOCUPES,INTENTA VOLVER A CARGAR LA PAGINA.EL SERVIDOR DE BASE DE DATOS PUEDE ESTAR OCUPADO";
                 die();
             }else{
-                //die("Conexion exitosa al servidor AWS");
+                die("Conexion exitosa al servidor AWS");
             }
 }catch(Exception $e){
     die("La conexion a una base de datos inexistente ha sido realizada");
