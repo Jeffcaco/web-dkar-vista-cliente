@@ -3,13 +3,34 @@
     //extraemos los id del form
     $v1 = $_REQUEST['talla'];
     $v2 = $_REQUEST['color'];
+    //filtrar todos
     if($v1=='Todos' && $v2=='Todos'){
         $consulta="SELECT P.idProducto as ID, P.nombre as nombre, CL.nombre as color,T.nombre as talla,CT.nombre as categoria,P.precioUnitario as precioUnit,P.unidadesDisp as unidades,P.imagen as imagen 
             FROM Producto as P 
             LEFT JOIN Categoria as CT ON P.idCategoria=CT.idCategoria 
             LEFT JOIN Talla as T ON P.idTalla=T.idTalla 
             LEFT JOIN Color as CL ON P.idColor=CL.idColor";
-    }else{
+    }
+    //filtrar todos por talla
+    if($v1!='Todos' && $v2=='Todos'){
+      $consulta="SELECT P.idProducto as ID, P.nombre as nombre, CL.nombre as color,T.nombre as talla,CT.nombre as categoria,P.precioUnitario as precioUnit,P.unidadesDisp as unidades,P.imagen as imagen 
+      FROM Producto as P 
+      LEFT JOIN Categoria as CT ON P.idCategoria=CT.idCategoria 
+      LEFT JOIN Talla as T ON P.idTalla=T.idTalla 
+      LEFT JOIN Color as CL ON P.idColor=CL.idColor
+      WHERE P.idTalla='$v1'";
+    }
+    //filtrar todos por color
+    if($v1=='Todos' && $v2!='Todos'){
+      $consulta="SELECT P.idProducto as ID, P.nombre as nombre, CL.nombre as color,T.nombre as talla,CT.nombre as categoria,P.precioUnitario as precioUnit,P.unidadesDisp as unidades,P.imagen as imagen 
+      FROM Producto as P 
+      LEFT JOIN Categoria as CT ON P.idCategoria=CT.idCategoria 
+      LEFT JOIN Talla as T ON P.idTalla=T.idTalla 
+      LEFT JOIN Color as CL ON P.idColor=CL.idColor
+      WHERE P.idColor='$v2'";
+    }
+    //filtrar por talla y color
+    if($v1!='Todos' && $v2!='Todos'){
         $consulta="SELECT P.idProducto as ID, P.nombre as nombre, CL.nombre as color,T.nombre as talla,CT.nombre as categoria,P.precioUnitario as precioUnit,P.unidadesDisp as unidades,P.imagen as imagen 
             FROM Producto as P 
             LEFT JOIN Categoria as CT ON P.idCategoria=CT.idCategoria 
@@ -69,7 +90,11 @@
            
             <!--Filtros-->
              <div class="container formato-filtro">
-                <p>Buzo > <?php echo $v1.' > '.$v2?></p>
+                <?php
+                    if($v1!="Todos" || $v2!="Todos"){
+                      echo 'Filtro'.' > '.$v1.' > '.$v2;
+                    }
+                ?>
               <h2>Filtrar por :</h2>
               <form action="filtro_buzo.php" method="GET">
                 <div class="form-group">
