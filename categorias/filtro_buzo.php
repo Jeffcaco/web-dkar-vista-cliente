@@ -219,8 +219,10 @@
                   display: none;
                 }
               </style>
-              <div class="alert alert-danger">
-                <strong>Error!</strong> <br>No se encontraron productos disponibles. <a href="../Catalogo.html" class="alert-link formato-error">Volver a catálogo</a>.
+              <div class="alert alert-danger">  
+              <i class="fas fa-exclamation-circle" style="color:#000;"></i><strong>¡Error!</strong> 
+              <br>No se encontraron productos disponibles <i class="far fa-frown" style="color:#000;"></i>
+              <br>Estamos trabajando en ello. <a href="../Catalogo.html" class="alert-link formato-error">Volver a catálogo</a>.
               </div>
           <?php }?>
       </div>  

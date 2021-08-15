@@ -136,7 +136,7 @@
             <div class="detalles">
               <!--tanque-->                                              <!--asignamos nombre segun el boton de for-->
               <button type="button" class="btn btn-success" data-toggle="modal" data-target=<?php print '#btn'.$x?>>
-              Ver detalles 
+              Ver detalles
               </button>
               <div class="modal fade" id=<?php echo 'btn'.$x?>>
                 <div class="modal-dialog modal-dialog-centered">
@@ -151,10 +151,11 @@
                       <div class="modal-body">
                         <h3>Tallas disponibles</h3>
                         <!--unidades por tallas-->
-                        <h5>Small <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?></span></h5>
-                        <h5>Medium <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
-                        <h5>Large <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
-                        <h5>XL <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
+                        <h5>S -> <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?></span></h5>
+                        <h5>M -> <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
+                        <h5>L -> <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
+                        <h5>XL -> <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
+                        <h5>XXL -> <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
                         <!--precio x mayor-->
                         <h3><span class="badge badge-dark">Precio por mayor S/<?php echo '  '.round($row['precioUnit'],2);?></span></h3>
                       </div>
@@ -183,8 +184,10 @@
                   display: none;
                 }
               </style>
-              <div class="alert alert-danger">
-                <strong>Error!</strong> <br>No se encontraron productos disponibles. <a href="../Catalogo.html" class="alert-link formato-error">Volver a catálogo</a>.
+              <div class="alert alert-danger">  
+              <i class="fas fa-exclamation-circle" style="color:#000;"></i><strong>¡Error!</strong> 
+              <br>No se encontraron productos disponibles <i class="far fa-frown" style="color:#000;"></i>
+              <br>Estamos trabajando en ello. <a href="../Catalogo.html" class="alert-link formato-error">Volver a catálogo</a>.
               </div>
           <?php }?>
       </div>  
