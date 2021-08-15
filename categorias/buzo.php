@@ -1,19 +1,10 @@
 <!--en esta parte se recibira la consulta-->
-<!--comentario-->
-<?php
-  require '../conexion.php';
-
-  $consulta="SELECT * FROM producto WHERE categoria='Pantalon'";
-  $resultado=mysqli_query($conexion,$consulta);
-  $num_filas=mysqli_num_rows($resultado);
-  //$array=mysqli_fetch_array($resultado);
-  //echo $num_filas;
-?>
 
 <!DOCTYPE html>
 <html>
 <head>
   <title>D'KAR</title>
+  <link rel="icon" type="image/png" href="../img/faviconv2.png"/>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="../css/estilos.css">
   <link rel="stylesheet" type="text/css" href="../css/catalogo.css">
@@ -32,10 +23,10 @@
       <input type="checkbox" id="menuprincipal">
       <label class="fas fa-bars" for="menuprincipal"></label>
       <nav class="menu">
-        <a href="../Principal.html">HOME</a></li>
+        <a href="../index.html">HOME</a></li>
         <a href="../Nosotros.html">NOSOTROS</a></li>
-        <a href="#">WHATSAPP</a></li>
-        <a href="#">UBICACION</a></li>
+				<a href="https://wa.link/z4gos0" target="_blank">WHATSAPP</a></li>
+				<a href="https://goo.gl/maps/11nKpywHspxLEXoA8" target="_blank">UBICACION</a></li>
         <a href="../Catalogo.html">CATALOGO</a></li>
       </nav>
     </div>
@@ -94,12 +85,25 @@
           <hr>
         </div>
             <?php
+            require '../conexion.php';
+
+            //realizamos select a la bd 
+            $consulta="SELECT P.idProducto as ID, P.nombre as nombre, CL.nombre as color,T.nombre as talla,CT.nombre as categoria,P.precioUnitario as precioUnit,P.unidadesDisp as unidades,P.imagen as imagen 
+            FROM Producto as P 
+            LEFT JOIN Categoria as CT ON P.idCategoria=CT.idCategoria 
+            LEFT JOIN Talla as T ON P.idTalla=T.idTalla 
+            LEFT JOIN Color as CL ON P.idColor=CL.idColor";
+            $resultado=mysqli_query($conexion,$consulta);
+            $num_filas=mysqli_num_rows($resultado);
+            //$array=mysqli_fetch_array($resultado);
+            //echo $num_filas;
               if($num_filas > 0){
                 for($x =0; $x < $num_filas; $x++){
                   $row = mysqli_fetch_array($resultado);
             ?>
 
         <!--columna articulo-->
+        
         <div class="col-sm-3 formato-columnas-filtro">
           <div class="container-fluid formato-carrusel">
               <div id="demo" class="carousel slide" data-ride="carousel">
@@ -110,17 +114,20 @@
                 </ul>
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                  <img class="mx-auto d-block img-fluid rounded" src="../img/<?php print $row['Imagen1'] ?>" alt="item-1">
+                  <img class="mx-auto d-block img-fluid rounded" src=<?php echo "data:image/jpeg;base64,'".base64_encode($row['imagen'])."'";?>>
                     <div class="carousel-caption">
-                      <h4><?php print $row['categoria'] ?></h4>
-                      <h2><span class="badge badge-primary">S/<?php print $row['precio_menor'] ?></span></h2>
+                      <!--nombre del modelo de producto-->
+                      <h4 style="color:#000;"><?php echo $row['nombre']; ?></h4> 
+                      <!--precio unidad--> 
+                      <h2><span class="badge badge-primary">S/<?php echo round($row['precioUnit'],2); ?></span></h2>
                     </div>
                   </div>
                   <div class="carousel-item">
-                  <img class="mx-auto d-block img-fluid rounded" src="../img/<?php print $row['Imagen2'] ?>" alt="item-2">
+                  <img class="mx-auto d-block img-fluid rounded" src=<?php echo "data:image/jpeg;base64,'".base64_encode($row['imagen'])."'";?>>
                   </div>
                   <div class="carousel-item">
-                  <img class="mx-auto d-block img-fluid rounded" src="../img/<?php print $row['Imagen3'] ?>" alt="item-3">
+                  <img class="mx-auto d-block img-fluid rounded" src=<?php echo "data:image/jpeg;base64,'".base64_encode($row['imagen'])."'";?>>
+                  <?php /*<img class="mx-auto d-block img-fluid rounded" src="../img/<?php print $row['Imagen3']; ?>" alt="item-3"> */ ?>
                   </div>
                 </div>
               </div>
@@ -136,22 +143,25 @@
                   <div class="modal-content">
                       <!-- Modal Header -->
                       <div class="modal-header">
-                        <h4 class="modal-title"><?php print $row['categoria']?></h4><br>
+                        <!--nombre y descripcion del producto-->
+                        <h4 class="modal-title"><?php echo $row['nombre'].' - '.$row['categoria'];?></h4><br>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                       </div>
                       <!-- Modal body -->
                       <div class="modal-body">
                         <h3>Tallas disponibles</h3>
-                        <h5>Small <span class="badge badge-warning"><?php print $row['unidades'].' unidades'?></span></h5>
-                        <h5>Medium <span class="badge badge-warning"><!--uni.--></span></h5>
-                        <h5>Large <span class="badge badge-warning"><!--uni.--></span></h5>
-                        <h5>XL <span class="badge badge-warning"><!--uni.--></span></h5>
-                        <h3><span class="badge badge-dark">Precio por mayor S/<?php print '  '.$row['precio_mayor']?></span></h3>
+                        <!--unidades por tallas-->
+                        <h5>Small <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?></span></h5>
+                        <h5>Medium <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
+                        <h5>Large <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
+                        <h5>XL <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
+                        <!--precio x mayor-->
+                        <h3><span class="badge badge-dark">Precio por mayor S/<?php echo '  '.round($row['precioUnit'],2);?></span></h3>
                       </div>
                       <!-- Modal footer -->
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Añadir<i class="fas fa-shopping-cart"></i></button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times"></i></button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Añadir <i class="fas fa-shopping-cart"></i></button>
                       </div>
                   </div>
                 </div>
@@ -163,6 +173,7 @@
       <!--fin-->
       <?php
                 } //fin de for
+                mysqli_close($conexion);
             }else{?>  <!--fin de if-->
               <style type="text/css">
                 .formato-colum1{ 
