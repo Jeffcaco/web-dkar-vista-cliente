@@ -1,4 +1,26 @@
-<!--en esta parte se recibira la consulta-->
+<?php 
+    require '../conexion.php';
+    //extraemos los id del form
+    $v1 = $_REQUEST['talla'];
+    $v2 = $_REQUEST['color'];
+    if($v1=='Todos' && $v2=='Todos'){
+        $consulta="SELECT P.idProducto as ID, P.nombre as nombre, CL.nombre as color,T.nombre as talla,CT.nombre as categoria,P.precioUnitario as precioUnit,P.unidadesDisp as unidades,P.imagen as imagen 
+            FROM Producto as P 
+            LEFT JOIN Categoria as CT ON P.idCategoria=CT.idCategoria 
+            LEFT JOIN Talla as T ON P.idTalla=T.idTalla 
+            LEFT JOIN Color as CL ON P.idColor=CL.idColor";
+    }else{
+        $consulta="SELECT P.idProducto as ID, P.nombre as nombre, CL.nombre as color,T.nombre as talla,CT.nombre as categoria,P.precioUnitario as precioUnit,P.unidadesDisp as unidades,P.imagen as imagen 
+            FROM Producto as P 
+            LEFT JOIN Categoria as CT ON P.idCategoria=CT.idCategoria 
+            LEFT JOIN Talla as T ON P.idTalla=T.idTalla 
+            LEFT JOIN Color as CL ON P.idColor=CL.idColor
+            WHERE P.idTalla='$v1' and P.idColor='$v2'";
+    }
+
+    $resultado = mysqli_query($conexion, $consulta);
+    $num_filas = mysqli_num_rows($resultado);
+?>
 
 <!DOCTYPE html>
 <html>
@@ -47,6 +69,7 @@
            
             <!--Filtros-->
              <div class="container formato-filtro">
+                <p>Buzo > <?php echo $v1.' > '.$v2?></p>
               <h2>Filtrar por :</h2>
               <form action="filtro_buzo.php" method="GET">
                 <div class="form-group">
@@ -85,18 +108,6 @@
           <hr>
         </div>
             <?php
-            require '../conexion.php';
-
-            //realizamos select a la bd 
-            $consulta="SELECT P.idProducto as ID, P.nombre as nombre, CL.nombre as color,T.nombre as talla,CT.nombre as categoria,P.precioUnitario as precioUnit,P.unidadesDisp as unidades,P.imagen as imagen 
-            FROM Producto as P 
-            LEFT JOIN Categoria as CT ON P.idCategoria=CT.idCategoria 
-            LEFT JOIN Talla as T ON P.idTalla=T.idTalla 
-            LEFT JOIN Color as CL ON P.idColor=CL.idColor";
-            $resultado=mysqli_query($conexion,$consulta);
-            $num_filas=mysqli_num_rows($resultado);
-            //$array=mysqli_fetch_array($resultado);
-            //echo $num_filas;
               if($num_filas > 0){
                 for($x =0; $x < $num_filas; $x++){
                   $row = mysqli_fetch_array($resultado);
