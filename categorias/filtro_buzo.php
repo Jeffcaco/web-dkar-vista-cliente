@@ -42,12 +42,14 @@
       LEFT JOIN Imagen as e on a.idProducto=e.idProducto  
           WHERE a.idTalla='$v1' and a.idColor='$v2'";
     }
+    //asignar nombre a color segun idColor
+    if($v2==130){ $v2="Blanco"; } if($v2==140){ $v2="Plomo"; } if($v2==150){ $v2="Negro"; } if($v2==160){ $v2="Azul"; } 
+    if($v2==170){ $v2="Celeste"; } if($v2==180){ $v2="Rojo"; } if($v2==190){ $v2="Naranja"; } if($v2==200){ $v2="Rosado"; }
+    if($v2==210){ $v2="Amarillo"; } if($v2==220){ $v2="Marron"; } if($v2==230){ $v2="Verde"; } if($v2==240){ $v2="Morado"; }
+
 
     $resultado = mysqli_query($conexion, $consulta);
     $num_filas = mysqli_num_rows($resultado);
-    //sacar nombre de talla y color
-    $resultado2 = mysqli_query($conexion, $consulta);
-    $row2 = mysqli_fetch_array($resultado2);
 ?>
 
 <!DOCTYPE html>
@@ -99,10 +101,10 @@
              <div class="container formato-filtro">
                 <?php
                     if($v1!="Todos" || $v2!="Todos"){
-                      echo 'FILTRO'.' > '.$v1.' > '.$row2['color'];
+                      echo $num_filas.' resultado(s)'.' > '.$v1.' > '.$v2;
                     }
                 ?>
-              <h2>Filtrar por :</h2>
+              <h2>FILTRAR POR :</h2>
               <form action="filtro_buzo.php" method="GET">
                 <div class="form-group">
                   <label for="talla">Talla:</label>

@@ -47,7 +47,7 @@
            
             <!--Filtros-->
              <div class="container formato-filtro">
-              <h2>Filtrar por :</h2>
+              <h2>FILTRAR POR :</h2>
               <form action="filtro_buzo.php" method="GET">
                 <div class="form-group">
                   <label for="talla">Talla:</label>
