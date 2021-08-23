@@ -65,12 +65,12 @@
                   <select class="form-control formato-lista" id="color" name="color">
                     <option value="Todos" selected>Todos</option>
                     <option value="130">Blanco</option>
-                    <option value="5">Negro</option>
-                    <option value="4">Plomo</option>
+                    <option value="150">Negro</option>
+                    <option value="140">Plomo</option>
                     <option value="160">Azul</option>
                     <option value="170">Celeste</option>
-                    <option value="8">Rojo</option>
-                    <option value="9">  Naranja</option>
+                    <option value="180">Rojo</option>
+                    <option value="190">  Naranja</option>
                     <option value="200">Rosado</option>
                     <option value="210">Amarillo</option>
                     <option value="220">Marrón</option>
@@ -88,18 +88,33 @@
             require '../conexion.php';
 
             //realizamos select a la bd 
-            $consulta="SELECT P.idProducto as ID, P.nombre as nombre, CL.nombre as color,T.nombre as talla,CT.nombre as categoria,P.precioUnitario as precioUnit,P.unidadesDisp as unidades,P.imagen as imagen 
-            FROM Producto as P 
-            LEFT JOIN Categoria as CT ON P.idCategoria=CT.idCategoria 
-            LEFT JOIN Talla as T ON P.idTalla=T.idTalla 
-            LEFT JOIN Color as CL ON P.idColor=CL.idColor";
+            $consulta="SELECT a.precioUni as pu,a.precioMay as pm,a.unidadesDisp as unidades,b.nombre as talla,c.nombre as color,d.nombre as subcategoria,e.imagen imagen  
+                                        FROM Producto as a 
+                                        LEFT JOIN Talla as b on a.idTalla=b.idTalla
+                                        LEFT JOIN Color as c on a.idColor=c.idColor
+                                        LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
+                                        LEFT JOIN Imagen as e on a.idProducto=e.idProducto
+                      WHERE d.nombre='Buzo'";
+
+            //para nombre de categoria->SELECT cat.nombre FROM Subcategoria as sub INNER JOIN Categoria as cat on sub.idCategoria=cat.idctegoria
             $resultado=mysqli_query($conexion,$consulta);
             $num_filas=mysqli_num_rows($resultado);
             //$array=mysqli_fetch_array($resultado);
             //echo $num_filas;
+            
+            //contamos por tallas
+            $s=0;$l=0;$m=0;$xl=0;$xxl=0;
+
               if($num_filas > 0){
                 for($x =0; $x < $num_filas; $x++){
                   $row = mysqli_fetch_array($resultado);
+
+                  //contamos por tallas
+                  if($row['talla']=='Small'){ $s=$row['unidades']; }
+                  if($row['talla']=='Large'){ $l=$row['unidades']; }
+                  if($row['talla']=='Medium'){ $m=$row['unidades']; }
+                  if($row['talla']=='Extra Large'){ $xl=$row['unidades']; }
+                  if($row['talla']=='Extra Extra Large'){ $xxl=$row['unidades']; }
             ?>
 
         <!--columna articulo-->
@@ -117,9 +132,9 @@
                   <img class="mx-auto d-block img-fluid rounded" src=<?php echo "data:image/jpeg;base64,'".base64_encode($row['imagen'])."'";?>>
                     <div class="carousel-caption">
                       <!--nombre del modelo de producto-->
-                      <h4 style="color:#000;"><?php echo $row['nombre']; ?></h4> 
+                      <h4 style="color:#000;"><?php echo $row['subcategoria']; ?></h4> 
                       <!--precio unidad--> 
-                      <h2><span class="badge badge-primary">S/<?php echo round($row['precioUnit'],2); ?></span></h2>
+                      <h2><span class="badge badge-primary">S/<?php echo round($row['pu'],2); ?></span></h2>
                     </div>
                   </div>
                   <div class="carousel-item">
@@ -144,20 +159,21 @@
                       <!-- Modal Header -->
                       <div class="modal-header">
                         <!--nombre y descripcion del producto-->
-                        <h4 class="modal-title"><?php echo $row['nombre'].' - '.$row['categoria'];?></h4><br>
+                        <h4 class="modal-title"><?php echo $row['subcategoria'].' - '.$row['color'];?></h4><br>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                       </div>
                       <!-- Modal body -->
                       <div class="modal-body">
                         <h3>Tallas disponibles</h3>
                         <!--unidades por tallas-->
-                        <h5>S -> <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?></span></h5>
-                        <h5>M -> <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
-                        <h5>L -> <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
-                        <h5>XL -> <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
-                        <h5>XXL -> <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
+                         
+                        <h5>S -> <span class="badge badge-warning"><?php echo $s.' unidades';?></span></h5>
+                        <h5>M -> <span class="badge badge-warning"><?php echo $m.' unidades';?><!--uni.--></span></h5>
+                        <h5>L -> <span class="badge badge-warning"><?php echo $l.' unidades';?><!--uni.--></span></h5>
+                        <h5>XL -> <span class="badge badge-warning"><?php echo $xl.' unidades';?><!--uni.--></span></h5>
+                        <h5>XXL -> <span class="badge badge-warning"><?php echo $xxl.' unidades';?><!--uni.--></span></h5>
                         <!--precio x mayor-->
-                        <h3><span class="badge badge-dark">Precio por mayor S/<?php echo '  '.round($row['precioUnit'],2);?></span></h3>
+                        <h3><span class="badge badge-dark">Precio por mayor S/<?php echo '  '.round($row['pm'],2);?></span></h3>
                       </div>
                       <!-- Modal footer -->
                       <div class="modal-footer">
