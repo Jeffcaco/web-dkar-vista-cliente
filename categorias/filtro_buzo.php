@@ -56,8 +56,8 @@
 <html>
 <head>
   <!--Developers 
-		@Castillo Cornejo Jeffrey Bryan		
-		@Collantes Tito Miguel Angel 		
+		@Castillo Cornejo, Jeffrey Bryan		
+		@Collantes Tito, Miguel Angel 		
  		@Mitma Huaccha, Johan Valerio
 	-->
   <title>D'KAR</title>
