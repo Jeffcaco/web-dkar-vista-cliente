@@ -3,6 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!--Developers 
+		@Castillo Cornejo Jeffrey Bryan		
+		@Collantes Tito Miguel Angel 		
+ 		@Mitma Huaccha, Johan Valerio
+	-->
   <title>D'KAR</title>
   <link rel="icon" type="image/png" href="../img/faviconv2.png"/>
   <meta charset="utf-8">
