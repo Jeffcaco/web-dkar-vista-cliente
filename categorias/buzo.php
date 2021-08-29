@@ -93,7 +93,13 @@
             require '../conexion.php';
 
             //realizamos select a la bd 
-            $consulta="SELECT a.precioUni as pu,a.precioMay as pm,a.unidadesDisp as unidades,b.nombre as talla,c.nombre as color,d.nombre as subcategoria,e.imagen imagen  
+            $consulta="SELECT a.precioUni as pu,
+            a.precioMay as pm,
+            a.unidadesDisp as unidades,
+            b.nombre as talla,
+            c.nombre as color,
+            d.nombre as subcategoria,
+            e.imagen as imagen  
                                         FROM Producto as a 
                                         LEFT JOIN Talla as b on a.idTalla=b.idTalla
                                         LEFT JOIN Color as c on a.idColor=c.idColor
