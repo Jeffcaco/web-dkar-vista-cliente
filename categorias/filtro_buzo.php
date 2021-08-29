@@ -5,42 +5,254 @@
     $v2 = $_REQUEST['color'];
     //filtrar todos
     if($v1=='Todos' && $v2=='Todos'){
-      $consulta="SELECT a.precioUni as pu,a.precioMay as pm,a.unidadesDisp as unidades,b.nombre as talla,c.nombre as color,d.nombre as subcategoria,e.imagen imagen  
-      FROM Producto as a 
-      LEFT JOIN Talla as b on a.idTalla=b.idTalla
-      LEFT JOIN Color as c on a.idColor=c.idColor
-      LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
-      LEFT JOIN Imagen as e on a.idProducto=e.idProducto";
+      $consulta="SELECT a.precioUni as pu,
+      a.precioMay as pm,
+      a.unidadesDisp as unidades,
+      b.nombre as talla,
+      c.nombre as color ,
+      d.nombre as subcategoria,
+      e.imagen as imagen1
+                                  FROM Producto as a 
+                                  LEFT JOIN Talla as b on a.idTalla=b.idTalla
+                                  LEFT JOIN Color as c on a.idColor=c.idColor 
+                                  LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
+                                  LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='a'
+                WHERE d.nombre='Buzo'
+                GROUP BY c.nombre";
+      
+      $consulta2="SELECT e.imagen as imagen2  
+                                  FROM Producto as a
+                                  LEFT JOIN Color as c on a.idColor=c.idColor 
+                                  LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
+                                  LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='b'
+                WHERE d.nombre='Buzo'
+                GROUP BY c.nombre";
+
+      $consulta3="SELECT S.nombre as NombreSubcategoria,C.nombre as Color, sum(
+                      CASE 
+                        WHEN P.idTalla='S' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS S,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='M' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS M,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='L' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS L,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='XL' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS XL,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='XXL' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS XXL
+                    
+                    FROM Producto as P
+                      LEFT JOIN Color as C ON P.idColor=C.idColor
+                      LEFT JOIN Subcategoria as S ON P.idSubcategoria=S.idSubcategoria
+                        GROUP BY S.idSubcategoria,P.idColor
+                        HAVING S.nombre='Buzo'";
     }
     //filtrar todos por talla
     if($v1!='Todos' && $v2=='Todos'){
-      $consulta="SELECT a.precioUni as pu,a.precioMay as pm,a.unidadesDisp as unidades,b.nombre as talla,c.nombre as color,d.nombre as subcategoria,e.imagen imagen  
-      FROM Producto as a 
-      LEFT JOIN Talla as b on a.idTalla=b.idTalla
-      LEFT JOIN Color as c on a.idColor=c.idColor
-      LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
-      LEFT JOIN Imagen as e on a.idProducto=e.idProducto
-          WHERE a.idTalla='$v1'";
+      $consulta="SELECT a.precioUni as pu,
+      a.precioMay as pm,
+      a.unidadesDisp as unidades,
+      b.nombre as talla,
+      c.nombre as color ,
+      d.nombre as subcategoria,
+      e.imagen as imagen1
+                                  FROM Producto as a 
+                                  LEFT JOIN Talla as b on a.idTalla=b.idTalla
+                                  LEFT JOIN Color as c on a.idColor=c.idColor 
+                                  LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
+                                  LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='a'
+                WHERE d.nombre='Buzo' AND a.idTalla='$v1'
+                GROUP BY c.nombre";
+      
+      $consulta2="SELECT e.imagen as imagen2  
+                                  FROM Producto as a
+                                  LEFT JOIN Color as c on a.idColor=c.idColor 
+                                  LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
+                                  LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='b'
+                WHERE d.nombre='Buzo' AND a.idTalla='$v1'
+                GROUP BY c.nombre";
+
+      $consulta3="SELECT S.nombre as NombreSubcategoria,C.nombre as Color, sum(
+                      CASE 
+                        WHEN P.idTalla='S' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS S,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='M' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS M,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='L' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS L,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='XL' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS XL,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='XXL' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS XXL
+                    
+                    FROM Producto as P 
+                      LEFT JOIN Color as C ON P.idColor=C.idColor
+                      LEFT JOIN Subcategoria as S ON P.idSubcategoria=S.idSubcategoria
+                        WHERE P.idTalla='$v1'
+                        GROUP BY S.idSubcategoria,P.idColor
+                        HAVING S.nombre='Buzo'";
     }
     //filtrar todos por color
     if($v1=='Todos' && $v2!='Todos'){
-      $consulta="SELECT a.precioUni as pu,a.precioMay as pm,a.unidadesDisp as unidades,b.nombre as talla,c.nombre as color,d.nombre as subcategoria,e.imagen imagen  
-      FROM Producto as a 
-      LEFT JOIN Talla as b on a.idTalla=b.idTalla
-      LEFT JOIN Color as c on a.idColor=c.idColor
-      LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
-      LEFT JOIN Imagen as e on a.idProducto=e.idProducto
-          WHERE a.idColor='$v2'";
+      $consulta="SELECT a.precioUni as pu,
+      a.precioMay as pm,
+      a.unidadesDisp as unidades,
+      b.nombre as talla,
+      c.nombre as color ,
+      d.nombre as subcategoria,
+      e.imagen as imagen1
+                                  FROM Producto as a 
+                                  LEFT JOIN Talla as b on a.idTalla=b.idTalla
+                                  LEFT JOIN Color as c on a.idColor=c.idColor 
+                                  LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
+                                  LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='a'
+                WHERE d.nombre='Buzo' AND a.idColor='$v2'
+                GROUP BY c.nombre";
+      
+      $consulta2="SELECT e.imagen as imagen2  
+                                  FROM Producto as a
+                                  LEFT JOIN Color as c on a.idColor=c.idColor 
+                                  LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
+                                  LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='b'
+                WHERE d.nombre='Buzo' AND a.idColor='$v2'
+                GROUP BY c.nombre";
+
+      $consulta3="SELECT S.nombre as NombreSubcategoria,C.nombre as Color, sum(
+                      CASE 
+                        WHEN P.idTalla='S' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS S,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='M' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS M,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='L' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS L,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='XL' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS XL,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='XXL' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS XXL
+                    
+                    FROM Producto as P 
+                      LEFT JOIN Color as C ON P.idColor=C.idColor
+                      LEFT JOIN Subcategoria as S ON P.idSubcategoria=S.idSubcategoria
+                        WHERE P.idColor='$v2'
+                        GROUP BY S.idSubcategoria,P.idColor
+                        HAVING S.nombre='Buzo'";
     }
     //filtrar por talla y color
     if($v1!='Todos' && $v2!='Todos'){
-      $consulta="SELECT a.precioUni as pu,a.precioMay as pm,a.unidadesDisp as unidades,b.nombre as talla,c.nombre as color,d.nombre as subcategoria,e.imagen imagen  
-      FROM Producto as a 
-      LEFT JOIN Talla as b on a.idTalla=b.idTalla
-      LEFT JOIN Color as c on a.idColor=c.idColor
-      LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
-      LEFT JOIN Imagen as e on a.idProducto=e.idProducto  
-          WHERE a.idTalla='$v1' and a.idColor='$v2'";
+      $consulta="SELECT a.precioUni as pu,
+      a.precioMay as pm,
+      a.unidadesDisp as unidades,
+      b.nombre as talla,
+      c.nombre as color ,
+      d.nombre as subcategoria,
+      e.imagen as imagen1
+                                  FROM Producto as a 
+                                  LEFT JOIN Talla as b on a.idTalla=b.idTalla
+                                  LEFT JOIN Color as c on a.idColor=c.idColor 
+                                  LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
+                                  LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='a'
+                WHERE d.nombre='Buzo' AND a.idTalla='$v1' AND a.idColor='$v2'
+                GROUP BY c.nombre";
+      
+      $consulta2="SELECT e.imagen as imagen2  
+                                  FROM Producto as a
+                                  LEFT JOIN Color as c on a.idColor=c.idColor 
+                                  LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
+                                  LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='b'
+                WHERE d.nombre='Buzo' AND a.idTalla='$v1' AND a.idColor='$v2'
+                GROUP BY c.nombre";
+
+      $consulta3="SELECT S.nombre as NombreSubcategoria,C.nombre as Color, sum(
+                      CASE 
+                        WHEN P.idTalla='S' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS S,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='M' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS M,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='L' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS L,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='XL' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS XL,
+                    sum(
+                      CASE 
+                        WHEN P.idTalla='XXL' THEN P.unidadesDisp
+                            ELSE  0
+                      END
+                    ) AS XXL
+                    
+                    FROM Producto as P 
+                      LEFT JOIN Color as C ON P.idColor=C.idColor
+                      LEFT JOIN Subcategoria as S ON P.idSubcategoria=S.idSubcategoria
+                        WHERE P.idTalla='$v1' AND a.idColor='$v2'
+                        GROUP BY S.idSubcategoria,P.idColor
+                        HAVING S.nombre='Buzo'";
     }
     //asignar nombre a color segun idColor
     if($v2==130){ $v2="Blanco"; } if($v2==140){ $v2="Plomo"; } if($v2==150){ $v2="Negro"; } if($v2==160){ $v2="Azul"; } 
@@ -50,6 +262,9 @@
 
     $resultado = mysqli_query($conexion, $consulta);
     $num_filas = mysqli_num_rows($resultado);
+
+    $resultado2=mysqli_query($conexion,$consulta2);
+    $resultado3=mysqli_query($conexion,$consulta3);
 ?>
 
 <!DOCTYPE html>
@@ -150,6 +365,8 @@
               if($num_filas > 0){
                 for($x =0; $x < $num_filas; $x++){
                   $row = mysqli_fetch_array($resultado);
+                  $row2 = mysqli_fetch_array($resultado2);
+                  $row3 = mysqli_fetch_array($resultado3);
             ?>
 
         <!--columna articulo-->
@@ -160,25 +377,22 @@
                 <ul class="carousel-indicators">
                   <li data-target="#demo" data-slide-to="0" class="active"></li>
                   <li data-target="#demo" data-slide-to="1"></li>
-                  <li data-target="#demo" data-slide-to="2"></li>
                 </ul>
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                  <img class="mx-auto d-block img-fluid rounded" src=<?php echo "data:image/jpeg;base64,'".base64_encode($row['imagen'])."'";?>>
+                  <?php  echo '<img class="rounded" src=data:image/jpeg;base64,'.str_replace("'", '',base64_encode( $row['imagen1'] )).' style="height:400px;width:100%";/>'; ?>
                     <div class="carousel-caption">
-                      <!--nombre del modelo de producto-->
-                      <h4 style="color:#000;"><?php echo $row['subcategoria']; ?></h4> 
                       <!--precio unidad--> 
                       <h2><span class="badge badge-primary">S/<?php echo round($row['pu'],2); ?></span></h2>
                     </div>
                   </div>
                   <div class="carousel-item">
-                  <img class="mx-auto d-block img-fluid rounded" src=<?php echo "data:image/jpeg;base64,'".base64_encode($row['imagen'])."'";?>>
-                  </div>
-                  <div class="carousel-item">
-                  <img class="mx-auto d-block img-fluid rounded" src=<?php echo "data:image/jpeg;base64,'".base64_encode($row['imagen'])."'";?>>
-                  <?php /*<img class="mx-auto d-block img-fluid rounded" src="../img/<?php print $row['Imagen3']; ?>" alt="item-3"> */ ?>
-                  </div>
+                  <?php  echo '<img class="rounded" src=data:image/jpeg;base64,'.str_replace("'", '',base64_encode( $row2['imagen2'] )).' style="height:400px;width:100%";/>'; ?>
+                  <div class="carousel-caption">
+                      <!--precio unidad--> 
+                      <h2><span class="badge badge-primary">S/<?php echo round($row['pu'],2); ?></span></h2>
+                    </div>  
+                </div>
                 </div>
               </div>
           </div>
@@ -201,10 +415,11 @@
                       <div class="modal-body">
                         <h3>Tallas disponibles</h3>
                         <!--unidades por tallas-->
-                        <h5>Small <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?></span></h5>
-                        <h5>Medium <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
-                        <h5>Large <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
-                        <h5>XL <span class="badge badge-warning"><?php echo $row['unidades'].' unidades';?><!--uni.--></span></h5>
+                        <h5>Small <span class="badge badge-warning"><?php echo $row3['S'].' unidades';?></span></h5>
+                        <h5>Medium <span class="badge badge-warning"><?php echo $row3['M'].' unidades';?><!--uni.--></span></h5>
+                        <h5>Large <span class="badge badge-warning"><?php echo $row3['L'].' unidades';?><!--uni.--></span></h5>
+                        <h5>XL <span class="badge badge-warning"><?php echo $row3['XL'].' unidades';?><!--uni.--></span></h5>
+                        <h5>XL <span class="badge badge-warning"><?php echo $row3['XXL'].' unidades';?><!--uni.--></span></h5>
                         <!--precio x mayor-->
                         <h3><span class="badge badge-dark">Precio por mayor S/<?php echo '  '.round($row['pm'],2);?></span></h3>
                       </div>
@@ -239,6 +454,14 @@
               </div>
           <?php }?>
       </div>  
+
+      <div style="text-align: center;">
+          <?php
+            if($v1=="Todos" && $v2=="Todos"){
+              echo '('.$num_filas.')'.' resultados encontrados';}
+          ?>
+      </div>
+      
   </main>
   
   <br>
