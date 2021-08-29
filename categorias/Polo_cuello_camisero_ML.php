@@ -53,7 +53,7 @@
             <!--Filtros-->
              <div class="container formato-filtro">
               <h2>FILTRAR POR :</h2>
-              <form action="filtro_Polo_cuello_camisero_ML.php" method="GET">
+              <form action="filtro_polo_cuello_camisero_ML.php" method="GET">
                 <div class="form-group">
                   <label for="talla">Talla:</label>
                   <select class="form-control formato-lista" id="talla" name="talla">

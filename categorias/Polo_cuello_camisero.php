@@ -47,7 +47,7 @@
         <div class="col-sm formato-colum1">
           <hr>
           <ul class="nav flex-column formato-categoria-filtro">
-            <h3>CATEGORÍA <span class="badge badge-info" style="font-size: 30px; margin-left: 5px; letter-spacing: 1px;">POLOs</span></h3>
+            <h3>CATEGORÍA <span class="badge badge-info" style="font-size: 30px; margin-left: 5px; letter-spacing: 1px;">POLO</span></h3>
             
            
             <!--Filtros-->
