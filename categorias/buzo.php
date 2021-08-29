@@ -99,17 +99,25 @@
             b.nombre as talla,
             c.nombre as color,
             d.nombre as subcategoria,
-            e.imagen as imagen  
+            e.imagen as imagen1
                                         FROM Producto as a 
                                         LEFT JOIN Talla as b on a.idTalla=b.idTalla
                                         LEFT JOIN Color as c on a.idColor=c.idColor
                                         LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
-                                        LEFT JOIN Imagen as e on a.idProducto=e.idProducto
+                                        LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='a'
+                      WHERE d.nombre='Buzo'";
+            
+            $consulta2="SELECT e.imagen as imagen2  
+                                        FROM Producto as a 
+                                        LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
+                                        LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='b'
                       WHERE d.nombre='Buzo'";
 
             //para nombre de categoria->SELECT cat.nombre FROM Subcategoria as sub INNER JOIN Categoria as cat on sub.idCategoria=cat.idctegoria
             $resultado=mysqli_query($conexion,$consulta);
             $num_filas=mysqli_num_rows($resultado);
+
+            $resultado2=mysqli_query($conexion,$consulta2);
             //$array=mysqli_fetch_array($resultado);
             //echo $num_filas;
             
@@ -119,6 +127,7 @@
               if($num_filas > 0){
                 for($x =0; $x < $num_filas; $x++){
                   $row = mysqli_fetch_array($resultado);
+                  $row2 = mysqli_fetch_array($resultado2);
 
                   //contamos por tallas
                   if($row['talla']=='Small'){ $s=$row['unidades']; }
@@ -136,11 +145,11 @@
                 <ul class="carousel-indicators">
                   <li data-target="#demo" data-slide-to="0" class="active"></li>
                   <li data-target="#demo" data-slide-to="1"></li>
-                  <li data-target="#demo" data-slide-to="2"></li>
                 </ul>
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                  <img class="mx-auto d-block img-fluid rounded" src=<?php echo "data:image/jpeg;base64,'".base64_encode($row['imagen'])."'";?>>
+                  <?php  echo '<img class="rounded" src=data:image/jpeg;base64,'.str_replace("'", '',base64_encode( $row['imagen1'] )).' style="height:400px;width:100%";/>'; ?>
+                  
                     <div class="carousel-caption">
                       <!--nombre del modelo de producto-->
                       <h4 style="color:#000;"><?php echo $row['subcategoria']; ?></h4> 
@@ -149,11 +158,7 @@
                     </div>
                   </div>
                   <div class="carousel-item">
-                  <img class="mx-auto d-block img-fluid rounded" src=<?php echo "data:image/jpeg;base64,'".base64_encode($row['imagen'])."'";?>>
-                  </div>
-                  <div class="carousel-item">
-                  <img class="mx-auto d-block img-fluid rounded" src=<?php echo "data:image/jpeg;base64,'".base64_encode($row['imagen'])."'";?>>
-                  <?php /*<img class="mx-auto d-block img-fluid rounded" src="../img/<?php print $row['Imagen3']; ?>" alt="item-3"> */ ?>
+                  <?php  echo '<img class="rounded" src=data:image/jpeg;base64,'.str_replace("'", '',base64_encode( $row2['imagen2'] )).' style="height:400px;width:100%";/>'; ?>
                   </div>
                 </div>
               </div>
