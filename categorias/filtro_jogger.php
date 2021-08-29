@@ -17,7 +17,7 @@
                                   LEFT JOIN Color as c on a.idColor=c.idColor 
                                   LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
                                   LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='a'
-                WHERE d.nombre='Buzo'
+                WHERE d.nombre='Jogger'
                 GROUP BY c.nombre";
       
       $consulta2="SELECT e.imagen as imagen2  
@@ -25,7 +25,7 @@
                                   LEFT JOIN Color as c on a.idColor=c.idColor 
                                   LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
                                   LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='b'
-                WHERE d.nombre='Buzo'
+                WHERE d.nombre='Jogger'
                 GROUP BY c.nombre";
 
       $consulta3="SELECT S.nombre as NombreSubcategoria,C.nombre as Color, sum(
@@ -63,7 +63,7 @@
                       LEFT JOIN Color as C ON P.idColor=C.idColor
                       LEFT JOIN Subcategoria as S ON P.idSubcategoria=S.idSubcategoria
                         GROUP BY S.idSubcategoria,P.idColor
-                        HAVING S.nombre='Buzo'";
+                        HAVING S.nombre='Jogger'";
     }
     //filtrar todos por talla
     if($v1!='Todos' && $v2=='Todos'){
@@ -79,7 +79,7 @@
                                   LEFT JOIN Color as c on a.idColor=c.idColor 
                                   LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
                                   LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='a'
-                WHERE d.nombre='Buzo' AND a.idTalla='$v1'
+                WHERE d.nombre='Jogger' AND a.idTalla='$v1'
                 GROUP BY c.nombre";
       
       $consulta2="SELECT e.imagen as imagen2  
@@ -87,7 +87,7 @@
                                   LEFT JOIN Color as c on a.idColor=c.idColor 
                                   LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
                                   LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='b'
-                WHERE d.nombre='Buzo' AND a.idTalla='$v1'
+                WHERE d.nombre='Jogger' AND a.idTalla='$v1'
                 GROUP BY c.nombre";
 
       $consulta3="SELECT S.nombre as NombreSubcategoria,C.nombre as Color, sum(
@@ -126,7 +126,7 @@
                       LEFT JOIN Subcategoria as S ON P.idSubcategoria=S.idSubcategoria
                         WHERE P.idTalla='$v1'
                         GROUP BY S.idSubcategoria,P.idColor
-                        HAVING S.nombre='Buzo'";
+                        HAVING S.nombre='Jogger'";
     }
     //filtrar todos por color
     if($v1=='Todos' && $v2!='Todos'){
@@ -142,7 +142,7 @@
                                   LEFT JOIN Color as c on a.idColor=c.idColor 
                                   LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
                                   LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='a'
-                WHERE d.nombre='Buzo' AND a.idColor='$v2'
+                WHERE d.nombre='Jogger' AND a.idColor='$v2'
                 GROUP BY c.nombre";
       
       $consulta2="SELECT e.imagen as imagen2  
@@ -150,7 +150,7 @@
                                   LEFT JOIN Color as c on a.idColor=c.idColor 
                                   LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
                                   LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='b'
-                WHERE d.nombre='Buzo' AND a.idColor='$v2'
+                WHERE d.nombre='Jogger' AND a.idColor='$v2'
                 GROUP BY c.nombre";
 
       $consulta3="SELECT S.nombre as NombreSubcategoria,C.nombre as Color, sum(
@@ -189,7 +189,7 @@
                       LEFT JOIN Subcategoria as S ON P.idSubcategoria=S.idSubcategoria
                         WHERE P.idColor='$v2'
                         GROUP BY S.idSubcategoria,P.idColor
-                        HAVING S.nombre='Buzo'";
+                        HAVING S.nombre='Jogger'";
     }
     //filtrar por talla y color
     if($v1!='Todos' && $v2!='Todos'){
@@ -205,7 +205,7 @@
                                   LEFT JOIN Color as c on a.idColor=c.idColor 
                                   LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
                                   LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='a'
-                WHERE d.nombre='Buzo' AND a.idTalla='$v1' AND a.idColor='$v2'
+                WHERE d.nombre='Jogger' AND a.idTalla='$v1' AND a.idColor='$v2'
                 GROUP BY c.nombre";
       
       $consulta2="SELECT e.imagen as imagen2  
@@ -213,7 +213,7 @@
                                   LEFT JOIN Color as c on a.idColor=c.idColor 
                                   LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
                                   LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='b'
-                WHERE d.nombre='Buzo' AND a.idTalla='$v1' AND a.idColor='$v2'
+                WHERE d.nombre='Jogger' AND a.idTalla='$v1' AND a.idColor='$v2'
                 GROUP BY c.nombre";
 
       $consulta3="SELECT S.nombre as NombreSubcategoria,C.nombre as Color, sum(
@@ -252,7 +252,7 @@
                       LEFT JOIN Subcategoria as S ON P.idSubcategoria=S.idSubcategoria
                         WHERE P.idTalla='$v1' AND P.idColor='$v2'
                         GROUP BY S.idSubcategoria,P.idColor
-                        HAVING S.nombre='Buzo'";
+                        HAVING S.nombre='Jogger'";
     }
     //asignar nombre a color segun idColor
     if($v2==130){ $v2="Blanco"; } if($v2==140){ $v2="Plomo"; } if($v2==150){ $v2="Negro"; } if($v2==160){ $v2="Azul"; } 
