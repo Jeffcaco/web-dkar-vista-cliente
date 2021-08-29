@@ -314,7 +314,7 @@
         <div class="col-sm formato-colum1">
           <hr>
           <ul class="nav flex-column formato-categoria-filtro">
-            <h3>CATEGORÍA <span class="badge badge-info" style="font-size: 30px; margin-left: 5px; letter-spacing: 1px;">BUZOS</span></h3>
+            <h3>CATEGORÍA <span class="badge badge-info" style="font-size: 30px; margin-left: 5px; letter-spacing: 1px;">JOGGER</span></h3>
             
            
             <!--Filtros-->
@@ -325,7 +325,7 @@
                     }
                 ?>
               <h2>FILTRAR POR :</h2>
-              <form action="filtro_buzo.php" method="GET">
+              <form action="filtro_jogger.php" method="GET">
                 <div class="form-group">
                   <label for="talla">Talla:</label>
                   <select class="form-control formato-lista" id="talla" name="talla">
@@ -347,7 +347,7 @@
                     <option value="160">Azul</option>
                     <option value="170">Celeste</option>
                     <option value="180">Rojo</option>
-                    <option value="190">  Naranja</option>
+                    <option value="190">Naranja</option>
                     <option value="200">Rosado</option>
                     <option value="210">Amarillo</option>
                     <option value="220">Marrón</option>

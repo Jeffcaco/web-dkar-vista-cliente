@@ -47,13 +47,13 @@
         <div class="col-sm formato-colum1">
           <hr>
           <ul class="nav flex-column formato-categoria-filtro">
-            <h3>CATEGORÍA <span class="badge badge-info" style="font-size: 30px; margin-left: 5px; letter-spacing: 1px;">BUZO</span></h3>
+            <h3>CATEGORÍA <span class="badge badge-info" style="font-size: 30px; margin-left: 5px; letter-spacing: 1px;">CONJUNTO</span></h3>
             
            
             <!--Filtros-->
              <div class="container formato-filtro">
               <h2>FILTRAR POR :</h2>
-              <form action="filtro_buzo.php" method="GET">
+              <form action="filtro_conjunto_sport.php" method="GET">
                 <div class="form-group">
                   <label for="talla">Talla:</label>
                   <select class="form-control formato-lista" id="talla" name="talla">
@@ -105,7 +105,7 @@
                                         LEFT JOIN Color as c on a.idColor=c.idColor 
                                         LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
                                         LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='a'
-                      WHERE d.nombre='Buzo'
+                      WHERE d.nombre='Conjunto sport'
                       GROUP BY c.nombre";
             
             $consulta2="SELECT e.imagen as imagen2  
@@ -113,7 +113,7 @@
                                         LEFT JOIN Color as c on a.idColor=c.idColor 
                                         LEFT JOIN Subcategoria as d on a.idSubcategoria=d.idSubcategoria
                                         LEFT JOIN Imagen as e on a.idProducto=e.idProducto AND e.tipoVista='b'
-                      WHERE d.nombre='Buzo'
+                      WHERE d.nombre='Conjunto sport'
                       GROUP BY c.nombre";
 
             $consulta3="SELECT S.nombre as NombreSubcategoria,C.nombre as Color, sum(
@@ -151,7 +151,7 @@
                             LEFT JOIN Color as C ON P.idColor=C.idColor
                             LEFT JOIN Subcategoria as S ON P.idSubcategoria=S.idSubcategoria
                               GROUP BY S.idSubcategoria,P.idColor
-                              HAVING S.nombre='Buzo'";
+                              HAVING S.nombre='Conjunto sport'";
             //para nombre de categoria->SELECT cat.nombre FROM Subcategoria as sub INNER JOIN Categoria as cat on sub.idCategoria=cat.idctegoria
             $resultado=mysqli_query($conexion,$consulta);
             $num_filas=mysqli_num_rows($resultado);
